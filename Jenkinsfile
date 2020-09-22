@@ -21,16 +21,11 @@ pipeline {
             env.JOB_FOR_URL = sh([script: "echo ${JOB_WITHOUT_BRANCH}|rev | cut -c 4- | rev", returnStdout: true]).trim()  
             echo "${env.JOB_FOR_URL}"  
           }
-        }
+        } 
       }
         stage('build dockerfile of tests') {
             steps {
-              sh "docker build -t unittest -f test.Dockerfile ." 
-            }  
-          }
-        stage('run unit tests') {   
-            steps {
-                sh "docker run unittest"  
+               sh 'docker-compose -f docker-compose.test.yml up --exit-code-from download_service_test' 
             }
         post {
           always {
