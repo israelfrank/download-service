@@ -24,6 +24,7 @@ pipeline {
           }
         } 
       }
+      // run unit test using docker-compose with minio
       stage('build dockerfile of tests') {
         steps {
             sh 'docker-compose -f docker-compose.test.yml up --exit-code-from download_service_test' 
@@ -34,6 +35,7 @@ pipeline {
           }
         }
       }
+      // login to acr when pushed to branch master or develop 
       stage('login to azure container registry') {
           when {
             anyOf {
@@ -45,7 +47,8 @@ pipeline {
               sh "docker login  drivehub.azurecr.io -u ${USER} -p ${PASS}"
             }
           }
-      }  
+      } 
+      // when pushed to master or develop build image and push to acr 
       stage('build dockerfile of system only for master and develop and push them to acr') {
           when {
             anyOf {
