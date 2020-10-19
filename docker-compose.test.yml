@@ -15,8 +15,8 @@ services:
   
   download_service_test:
     build:
-      context: .
-      dockerfile: test.Dockerfile
+        context: .
+        dockerfile: test.Dockerfile
     environment:
       S3_ACCESS_KEY: drivetests
       S3_SECRET_KEY: fg4wGQOtwNNf7Yjxpt2NEBIr0c5G3++h5Qmb4NivKviy7YIum8Y24hGPl95Sj1jpLqE8LpxhpX6xmm4A4UBQ6g==
